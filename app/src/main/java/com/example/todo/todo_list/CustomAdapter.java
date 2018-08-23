@@ -41,6 +41,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         Task task = taskList.get(position);
         holder.tasks.setText(task.getTodo());
+        holder.tv_priority.setText("Priority on "+task.getPriority());
+        holder.tv_start_date.setText(task.getStartDate());
+        holder.tv_end_date.setText(task.getEndDate());
+        holder.tv_note.setText("Notes: "+task.getNote());
+        String assignedBy=task.getAssignby().get(0).getCustomerName();
+        holder.tv_assigned_by.setText("AssignedBy: "+assignedBy);
 
         ArrayList<String> list = new ArrayList<String>();
         for (User user : task.getAssignto())
@@ -53,17 +59,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         holder.spinnerAssigned.setSelected(false);
         holder.spinnerAssigned.setAdapter(assignedAdapter);
         holder.spinnerAssigned.setOnItemSelectedListener(null);
-
-        ArrayList<String> assignBylist = new ArrayList<String>();
-        for (User user : task.getAssignby())
-            assignBylist.add(user.getCustomerName());
-        ArrayAdapter<String> assigneeAdapter = new ArrayAdapter<String>(mContext,
-                android.R.layout.simple_spinner_item, assignBylist);
-        assigneeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.spinnerAssignee.setSelection(0);
-        holder.spinnerAssignee.setSelected(false);
-        holder.spinnerAssignee.setAdapter(assigneeAdapter);
-        holder.spinnerAssignee.setOnItemSelectedListener(null);
 
 
     }
@@ -85,8 +80,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tasks;
-        Spinner spinnerAssignee;
         Spinner spinnerAssigned;
+        TextView tv_note;
+        TextView tv_start_date;
+        TextView tv_end_date;
+        TextView tv_priority;
+        TextView tv_assigned_by;
+
+
 
         public View layout;
 
@@ -94,8 +95,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             super(itemView);
             layout = itemView;
             tasks = itemView.findViewById(R.id.task);
-            spinnerAssigned = itemView.findViewById(R.id.spinner_assigned);
-            spinnerAssignee = itemView.findViewById(R.id.spinner_assignee);
+            spinnerAssigned=itemView.findViewById(R.id.spinner_assigned);
+            tv_note= itemView.findViewById(R.id.note);
+            tv_start_date =itemView.findViewById(R.id.startDate);
+            tv_end_date= itemView.findViewById(R.id.endDate);
+            tv_priority= itemView.findViewById(R.id.priority);
+            tv_assigned_by=itemView.findViewById(R.id.text_assigned_by);
 
         }
     }

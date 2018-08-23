@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
                     ArrayList<User> assigntoList = new ArrayList<>();
 
                     String todoString = null;
+                    String startDate=null;
+                    String endDate=null;
+                    String priority=null;
+                    String note=null;
 
 
                     for (DataSnapshot data : index.getChildren()) {
@@ -99,9 +103,20 @@ public class MainActivity extends AppCompatActivity {
                         } else if (data.getKey().equalsIgnoreCase("todo")) {
                              todoString = data.getValue().toString();
                         }
+                        else if (data.getKey().equalsIgnoreCase("note")) {
+                            note = data.getValue().toString();
+                        }else if (data.getKey().equalsIgnoreCase("priority")) {
+                            priority = data.getValue().toString();
+                        }
+                        else if (data.getKey().equalsIgnoreCase("startDate")) {
+                            startDate = data.getValue().toString();
+                        }
+                        else if (data.getKey().equalsIgnoreCase("endDate")) {
+                            endDate = data.getValue().toString();
+                        }
 
                     }
-                    taskList.add(new Task(assigntoList, assignbyList, todoString));
+                    taskList.add(new Task(assigntoList, assignbyList, todoString,note,priority,startDate,endDate));
 
 
 //                    DataSnapshot assignby = data.child("assignby");
